@@ -1,0 +1,29 @@
+# project name
+name: aoyagi-practice-docker-compose
+
+# このファイル定義しているコンテナー
+services:
+  aoyagi-db:
+    image: mysql:latest
+    container_name: aoyagi-practice-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "12345"
+      MYSQL_DATABASE: "aoyagi_mysql_db"
+    ports:
+      - "1234:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  aoyagi-php:
+    image: php:8.2-apache 
+    container_name: aoyagi-practice-php
+    ports:
+      - "5678:80"
+    volumes:
+      - ./html:/var/www/html 
+    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
+    depends_on:
+      - aoyagi-db
+
+volumes:
+  db_data: 
