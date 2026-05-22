@@ -1,8 +1,8 @@
 <?php
 class Database
 {
-    private $table_name = "japanese_university";
-    private $column_name = "university_name";
+    private $tableName = "japanese_university";
+    private $columnName = "university_name";
     private PDO $pdo;
 
     // 自動実行されるコンストラクタ
@@ -14,22 +14,19 @@ class Database
 
     private function createTable(): void
     {
-        $table_sql = "CREATE TABLE IF NOT EXISTS {$this->table_name} (
+        $tableSql = "CREATE TABLE IF NOT EXISTS {$this->tableName} (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            {$this->column_name} VARCHAR(255) NOT NULL UNIQUE
+            {$this->columnName} VARCHAR(255) NOT NULL UNIQUE
         )";
-        $this->pdo->query($table_sql);
+        $this->pdo->query($tableSql);
     }
 
-    public function insertTable(string $name): void
+    public function insertTable(array $names): void
     {
-        $stmt = $this->pdo->prepare("INSERT IGNORE INTO {$this->table_name} ({$this->column_name}) VALUES (:name)");
-        $stmt->execute(['name' => $name]);
-    }
-
-    public function closeConnection(): void
-    {
-        unset($this->pdo);
+        $stmt = $this->pdo->prepare("INSERT IGNORE INTO {$this->tableName} ({$this->columnName}) VALUES (:name)");
+        foreach ($names as $name) {
+            $stmt->execute(['name' => $name]);
+        }
     }
 }
 
@@ -48,12 +45,12 @@ class DataScraper
         ];
 
         $context = stream_context_create($option);
-        $html_source =  file_get_contents($this->url, false, $context);
+        $htmlSource =  file_get_contents($this->url, false, $context);
         $universities = [];
 
-        if ($html_source !== false) {
+        if ($htmlSource !== false) {
             $doc = new DOMDocument();
-            @$doc->loadHTML('<?xml encoding="UTF-8">' . $html_source);
+            @$doc->loadHTML('<?xml encoding="UTF-8">' . $htmlSource);
             $links = $doc->getElementsByTagName('a');
 
             foreach ($links as $link) {
@@ -73,11 +70,20 @@ class DataScraper
 
 class DataDisplay
 {
-    public function displayUniversities(array $universities): void
+    public function displayUniversitiesHTML(array $universities): void
     {
         $count = 1;
         foreach ($universities as $university) {
-            echo $count . "番目の大学 : " . $university . (php_sapi_name() === 'cli' ? "\n" : "<br>");
+            echo $count . "番目の大学 : " . $university . "<br>";
+            $count++;
+        }
+    }
+
+    public function displayUniversitiesCLI(array $universities): void
+    {
+        $count = 1;
+        foreach ($universities as $university) {
+            echo $count . "番目の大学 : " . $university . "\n";
             $count++;
         }
     }
@@ -97,12 +103,13 @@ try {
     $display = new DataDisplay();
 
     $universities = $scraper->getUniversities();
-    foreach ($universities as $university) {
-        $db->insertTable($university);
-    }
+    $db->insertTable($universities);
 
-    $display->displayUniversities($universities);
-    $db->closeConnection();
+    if (php_sapi_name() === 'cli') {
+        $display->displayUniversitiesCLI($universities);
+    } else {
+        $display->displayUniversitiesHTML($universities);
+    }
 } catch (Exception $e) {
     die("Error: " . $e->getMessage());
 }
