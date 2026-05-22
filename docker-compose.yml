@@ -15,7 +15,7 @@ services:
       - db_data:/var/lib/mysql
 
   aoyagi-php:
-    image: php:8.2-apache 
+    image: php:8.5-apache 
     container_name: aoyagi-practice-php
     ports:
       - "5678:80"
