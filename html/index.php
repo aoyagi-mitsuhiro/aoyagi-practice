@@ -1,17 +1,18 @@
 <?php
 $pdo = new PDO('mysql:host=aoyagi-db;dbname=aoyagi_mysql_db;charset=utf8', 'root', '12345');
 
-$dataFether = new DataFethcer();
-$dataFether->fetchFromUrl("https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E5%A4%A7%E5%AD%A6%E4%B8%80%E8%A6%A7_(%E4%BA%94%E5%8D%81%E9%9F%B3%E9%A0%86)");
-$data = $dataFether->getData();
 
-$dataOputtter = new DataOutputter();
+$dataFetcher = new DataFethcer();
+$dataFetcher->fetchFromUrl("https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E5%A4%A7%E5%AD%A6%E4%B8%80%E8%A6%A7_(%E4%BA%94%E5%8D%81%E9%9F%B3%E9%A0%86)");
+$data = $dataFetcher->getData();
+
+$dataOutputter = new DataOutputter();
 if (php_sapi_name() === 'cli') {
-    $dataOputtter->outputCli($data);
+    $dataOutputter->outputCli($data);
 } else {
-    $dataOputtter->outputHtml($data);
+    $dataOutputter->outputHtml($data);
 }
-$dataOputtter->savetoDatabase($data, $pdo);
+$dataOutputter->savetoDatabase($data, $pdo);
 
 class DataFethcer
 {
