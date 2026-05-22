@@ -21,7 +21,7 @@ services:
       - "5678:80"
     volumes:
       - ./html:/var/www/html 
-    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
+    command: bash -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
     depends_on:
       - aoyagi-db
 
