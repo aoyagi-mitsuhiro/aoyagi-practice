@@ -2,7 +2,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Src\{universityRepo, DataScraper, DataDisplay};
+use Aoyagi\AoyagiPractice\UniversityRepo;
+use Aoyagi\AoyagiPractice\DataScraper;
+use Aoyagi\AoyagiPractice\DataDisplay;
 
 $dsn = "mysql:host=aoyagi-db;dbname=aoyagi_mysql_db;charset=utf8mb4";
 $options = [
@@ -12,7 +14,7 @@ $options = [
 
 try {
     $pdo = new PDO($dsn, "root", "12345", $options);
-    $db = new universityRepo($pdo);
+    $db = new UniversityRepo($pdo);
     $scraper = new DataScraper();
     $display = new DataDisplay();
 

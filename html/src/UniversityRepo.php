@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Src;
+namespace Aoyagi\AoyagiPractice;
 
 use PDO;
 
-class universityRepo
+class UniversityRepo
 {
     private $tableName = "japanese_university";
     private $columnName = "university_name";

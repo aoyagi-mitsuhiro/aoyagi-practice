@@ -1,10 +1,16 @@
 {
+    "name": "aoyagi/aoyagi-practice",
+    "description": "aoyagi's composer setting",
     "autoload": {
         "psr-4": {
-            "App\\Src\\": "src/"
+            "Aoyagi\\AoyagiPractice\\": "src/"
         }
     },
-    "scripts": {
-        "dump": "composer dump-autoload"
-    }
+    "authors": [
+        {
+            "name": "aoyagi"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
 }
