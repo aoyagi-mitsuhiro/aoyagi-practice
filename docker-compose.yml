@@ -15,15 +15,15 @@ services:
       - db_data:/var/lib/mysql
 
   aoyagi-php:
-    image: php:8.5-apache 
+    image: php:8.5-apache
     container_name: aoyagi-practice-php
     ports:
       - "5678:80"
     volumes:
-      - ./html:/var/www/html 
+      - ./html:/var/www/html
     command: bash -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
     depends_on:
       - aoyagi-db
 
 volumes:
-  db_data: 
+  db_data:
