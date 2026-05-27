@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "d6f9acb87668110f793d66a3f52d0c2072972ba9"
+                "reference": "b4e0d6649e155025c5b6221d9e242dd35a3d47a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d6f9acb87668110f793d66a3f52d0c2072972ba9",
-                "reference": "d6f9acb87668110f793d66a3f52d0c2072972ba9",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b4e0d6649e155025c5b6221d9e242dd35a3d47a9",
+                "reference": "b4e0d6649e155025c5b6221d9e242dd35a3d47a9",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T01:15:03+00:00"
+            "time": "2026-05-27T01:36:42+00:00"
         },
         {
             "name": "guzzlehttp/promises",
