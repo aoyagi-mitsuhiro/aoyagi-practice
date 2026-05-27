@@ -3,6 +3,7 @@
 namespace Aoyagi\AoyagiPractice;
 
 use DOMDocument;
+use GuzzleHttp\Client;
 
 class DataScraper
 {
@@ -10,15 +11,29 @@ class DataScraper
 
     public function getUniversities(): array
     {
-        $option = [
-            'http' => [
-                'method' => "GET",
-                'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-            ]
-        ];
+        // 削除
+        // $option = [
+        //     'http' => [
+        //         'method' => "GET",
+        //         'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+        //     ]
+        // ];
 
-        $context = stream_context_create($option);
-        $htmlSource =  file_get_contents($this->url, false, $context);
+        // $context = stream_context_create($option);
+        // $htmlSource =  file_get_contents($this->url, false, $context);
+
+        // 追加
+        $client = new Client();
+        $res = $client->request('GET', $this->url, [
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            ]
+        ]);
+        $htmlSource = $res->getBody();
+
+        // echo $htmlSource;
+
+
         $universities = [];
 
         if ($htmlSource !== false) {
