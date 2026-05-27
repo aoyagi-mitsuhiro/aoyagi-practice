@@ -15,15 +15,15 @@ services:
       - db_data:/var/lib/mysql
 
   aoyagi-php:
-    image: php:8.2-apache 
+    build:
+      context: docker/php
     container_name: aoyagi-practice-php
     ports:
       - "5678:80"
     volumes:
-      - ./html:/var/www/html 
-    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
+      - ./html:/var/www/html
     depends_on:
       - aoyagi-db
 
 volumes:
-  db_data: 
+  db_data:

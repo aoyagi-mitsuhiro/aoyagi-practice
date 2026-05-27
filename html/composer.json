@@ -1,0 +1,18 @@
+{
+    "name": "aoyagi/aoyagi-practice",
+    "description": "aoyagi's composer setting",
+    "autoload": {
+        "psr-4": {
+            "Aoyagi\\AoyagiPractice\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "aoyagi"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "8.0.x-dev"
+    }
+}
